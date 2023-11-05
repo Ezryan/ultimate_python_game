@@ -12,6 +12,17 @@ pygame.init()
 pygame.display.set_caption("Ultimate MIPT Game")
 
 
+def get_map_surf(floor):
+    """
+    generate surface for map
+    may be random in future
+    :param floor:
+    :return:
+    """
+    return [*floor, Block(0, HEIGHT - BLOCK_SIZE * 2, BLOCK_SIZE),
+            Block(3 * BLOCK_SIZE, HEIGHT - BLOCK_SIZE * 4, BLOCK_SIZE)]
+
+
 def get_background(name):
     """
     generate background
@@ -47,17 +58,6 @@ def display(screen, background, image, player, objs, shift_x):
     player.display(screen, shift_x)
 
     pygame.display.update()  # updates your display
-
-
-def get_map_surf(floor):
-    """
-    generate surface for map
-    may be random in future
-    :param floor:
-    :return:
-    """
-    return [*floor, Block(0, HEIGHT - BLOCK_SIZE * 2, BLOCK_SIZE),
-            Block(3 * BLOCK_SIZE, HEIGHT - BLOCK_SIZE * 4, BLOCK_SIZE)]
 
 
 def main(screen):
