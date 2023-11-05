@@ -52,6 +52,11 @@ def load_sprite_list(dir_f, dir_s, width, height, is_directed=False):
 
 
 def get_block(size):
+    """
+    loading of block image from file with all blocks
+    :param size:
+    :return:
+    """
     path = join("img", "terrain", "terrain.png")
     image_buffer = pygame.image.load(path).convert_alpha()
     surface_buffer = pygame.Surface((size, size), pygame.SRCALPHA, 32)

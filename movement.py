@@ -4,7 +4,15 @@ import pygame
 
 pygame.init()
 
+
 def vertical_collision_processing(player, objects, delta_y):
+    """
+    this function handling vertical collisions
+    :param player:
+    :param objects:
+    :param delta_y:
+    :return:
+    """
     touched_objects = []
     for obj in objects:
         if pygame.sprite.collide_mask(player, obj):
@@ -21,6 +29,13 @@ def vertical_collision_processing(player, objects, delta_y):
 
 
 def touch(player, objs, delta_x):
+    """
+    this function checking objects which in touch with player
+    :param player:
+    :param objs:
+    :param delta_x:
+    :return:
+    """
     player.move(delta_x, 0)
     player.update()
     touched_obj = None

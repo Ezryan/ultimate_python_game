@@ -8,6 +8,9 @@ window = pygame.display.set_mode((WIDTH, HEIGHT))
 
 
 class Player(pygame.sprite.Sprite):
+    """
+    Player class
+    """
     COLOR = (255, 0, 0)
     SPRITES = load_sprite_list("player", "MaskSkin", 32, 32, True)
     ANIMATION_PING = 5
@@ -33,6 +36,10 @@ class Player(pygame.sprite.Sprite):
         self.count = 0
 
     def jump(self):
+        """
+        jump method
+        :return:
+        """
         self.y_speed = -GRAVITY * 8
         self.animation_count = 0
         self.jump_count += 1
@@ -85,15 +92,27 @@ class Player(pygame.sprite.Sprite):
         self.update_outfit()
 
     def landed(self):
+        """
+        landing
+        :return:
+        """
         self.fall_count = 0
         self.y_speed = 0
         self.jump_count = 0
 
     def hit_head(self):
+        """
+        hitting
+        :return:
+        """
         self.count = 0
         self.y_speed *= -1
 
     def update_outfit(self):
+        """
+        updates sprite
+        :return:
+        """
         sprite_list = "idle"
         if self.y_speed != 0:
             if self.jump_count == 1:
@@ -113,6 +132,10 @@ class Player(pygame.sprite.Sprite):
         self.update()
 
     def update(self):
+        """
+        update condition
+        :return:
+        """
         self.rect = self.sprite.get_rect(topleft=(self.rect.x, self.rect.y))
         self.mask = pygame.mask.from_surface(self.sprite)
 
