@@ -1,5 +1,4 @@
-import pygame
-import sys
+import pygame, sys
 from settings import *
 from level import Level
 from overworld import Overworld
@@ -8,52 +7,46 @@ from ui import UI
 
 class Game:
     def __init__(self):
-
+        """
+        initialize game
+        """
         # game attributes
-        self.max_level = 0
+        self.max_level = 2
         self.max_health = 100
         self.cur_health = 100
         self.coins = 0
 
         # overworld creation
         self.overworld = Overworld(0, self.max_level, screen, self.create_level)
-        self.status = "overworld"
+        self.status = 'overworld'
 
         # user interface
         self.ui = UI(screen)
 
     def create_level(self, current_level):
         """
-
+        creatte level
         :param current_level:
         :return:
         """
-        self.level = Level(
-            current_level,
-            screen,
-            self.create_overworld,
-            self.change_coins,
-            self.change_health,
-        )
-        self.status = "level"
+        self.level = Level(current_level, screen, self.create_overworld, self.change_coins, self.change_health)
+        self.status = 'level'
 
     def create_overworld(self, current_level, new_max_level):
         """
-
+        create bg
         :param current_level:
         :param new_max_level:
         :return:
         """
         if new_max_level > self.max_level:
             self.max_level = new_max_level
-        self.overworld = Overworld(
-            current_level, self.max_level, screen, self.create_level
-        )
-        self.status = "overworld"
+        self.overworld = Overworld(current_level, self.max_level, screen, self.create_level)
+        self.status = 'overworld'
 
     def change_coins(self, amount):
         """
-
+        without comment
         :param amount:
         :return:
         """
@@ -61,7 +54,7 @@ class Game:
 
     def change_health(self, amount):
         """
-
+        without comments
         :param amount:
         :return:
         """
@@ -69,7 +62,7 @@ class Game:
 
     def check_game_over(self):
         """
-
+        without comments
         :return:
         """
         if self.cur_health <= 0:
@@ -77,14 +70,14 @@ class Game:
             self.coins = 0
             self.max_level = 0
             self.overworld = Overworld(0, self.max_level, screen, self.create_level)
-            self.status = "overworld"
+            self.status = 'overworld'
 
     def run(self):
         """
-
+        runs game
         :return:
         """
-        if self.status == "overworld":
+        if self.status == 'overworld':
             self.overworld.run()
         else:
             self.level.run()
@@ -105,12 +98,8 @@ while True:
             pygame.quit()
             sys.exit()
 
-    screen.fill("grey")
+    screen.fill('grey')
     game.run()
-
-    # unit test
-    if game.cur_health < 100:
-        print("Health is decrease")
 
     pygame.display.update()
     clock.tick(60)

@@ -5,18 +5,11 @@ from math import sin
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, surface, create_jump_particles, change_health):
-        """
-
-        :param pos:
-        :param surface:
-        :param create_jump_particles:
-        :param change_health:
-        """
         super().__init__()
         self.import_character_assets()
         self.frame_index = 0
         self.animation_speed = 0.15
-        self.image = self.animations["idle"][self.frame_index]
+        self.image = self.animations['idle'][self.frame_index]
         self.rect = self.image.get_rect(topleft=pos)
 
         # dust particles
@@ -33,7 +26,7 @@ class Player(pygame.sprite.Sprite):
         self.jump_speed = -16
 
         # player status
-        self.status = "idle"
+        self.status = 'idle'
         self.facing_right = True
         self.on_ground = False
         self.on_ceiling = False
@@ -47,31 +40,17 @@ class Player(pygame.sprite.Sprite):
         self.hurt_time = 0
 
     def import_character_assets(self):
-        """
-
-        :return:
-        """
-        character_path = "../graphics/character/"
-        self.animations = {"idle": [], "run": [], "jump": [], "fall": []}
+        character_path = '../graphics/character/'
+        self.animations = {'idle': [], 'run': [], 'jump': [], 'fall': []}
 
         for animation in self.animations.keys():
             full_path = character_path + animation
             self.animations[animation] = import_folder(full_path)
 
     def import_dust_run_particles(self):
-        """
-
-        :return:
-        """
-        self.dust_run_particles = import_folder(
-            "../graphics/character/dust_particles/run"
-        )
+        self.dust_run_particles = import_folder('../graphics/character/dust_particles/run')
 
     def animate(self):
-        """
-
-        :return:
-        """
         animation = self.animations[self.status]
 
         # loop over frame index
@@ -107,11 +86,7 @@ class Player(pygame.sprite.Sprite):
             self.rect = self.image.get_rect(midtop=self.rect.midtop)
 
     def run_dust_animation(self):
-        """
-
-        :return:
-        """
-        if self.status == "run" and self.on_ground:
+        if self.status == 'run' and self.on_ground:
             self.dust_frame_index += self.dust_animation_speed
             if self.dust_frame_index >= len(self.dust_run_particles):
                 self.dust_frame_index = 0
@@ -123,16 +98,10 @@ class Player(pygame.sprite.Sprite):
                 self.display_surface.blit(dust_particle, pos)
             else:
                 pos = self.rect.bottomright - pygame.math.Vector2(6, 10)
-                flipped_dust_particle = pygame.transform.flip(
-                    dust_particle, True, False
-                )
+                flipped_dust_particle = pygame.transform.flip(dust_particle, True, False)
                 self.display_surface.blit(flipped_dust_particle, pos)
 
     def get_input(self):
-        """
-
-        :return:
-        """
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_RIGHT]:
@@ -149,60 +118,36 @@ class Player(pygame.sprite.Sprite):
             self.create_jump_particles(self.rect.midbottom)
 
     def get_status(self):
-        """
-
-        :return:
-        """
         if self.direction.y < 0:
-            self.status = "jump"
+            self.status = 'jump'
         elif self.direction.y > 1:
-            self.status = "fall"
+            self.status = 'fall'
         else:
             if self.direction.x != 0:
-                self.status = "run"
+                self.status = 'run'
             else:
-                self.status = "idle"
+                self.status = 'idle'
 
     def apply_gravity(self):
-        """
-
-        :return:
-        """
         self.direction.y += self.gravity
         self.rect.y += self.direction.y
 
     def jump(self):
-        """
-
-        :return:
-        """
         self.direction.y = self.jump_speed
 
     def get_damage(self):
-        """
-
-        :return:
-        """
         if not self.invincible:
             self.change_health(-10)
             self.invincible = True
             self.hurt_time = pygame.time.get_ticks()
 
     def invincibility_timer(self):
-        """
-
-        :return:
-        """
         if self.invincible:
             current_time = pygame.time.get_ticks()
             if current_time - self.hurt_time >= self.invincibility_duration:
                 self.invincible = False
 
     def wave_value(self):
-        """
-
-        :return:
-        """
         value = sin(pygame.time.get_ticks())
         if value >= 0:
             return 255
@@ -210,10 +155,6 @@ class Player(pygame.sprite.Sprite):
             return 0
 
     def update(self):
-        """
-
-        :return:
-        """
         self.get_input()
         self.get_status()
         self.animate()

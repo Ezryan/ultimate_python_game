@@ -5,16 +5,11 @@ import pygame
 
 
 def import_folder(path):
-    """
-
-    :param path:
-    :return:
-    """
     surface_list = []
 
     for _, __, image_files in walk(path):
         for image in image_files:
-            full_path = path + "/" + image
+            full_path = path + '/' + image
             image_surf = pygame.image.load(full_path).convert_alpha()
             surface_list.append(image_surf)
 
@@ -22,25 +17,15 @@ def import_folder(path):
 
 
 def import_csv_layout(path):
-    """
-
-    :param path:
-    :return:
-    """
     terrain_map = []
     with open(path) as map:
-        level = reader(map, delimiter=",")
+        level = reader(map, delimiter=',')
         for row in level:
             terrain_map.append(list(row))
         return terrain_map
 
 
 def import_cut_graphics(path):
-    """
-
-    :param path:
-    :return:
-    """
     surface = pygame.image.load(path).convert_alpha()
     tile_num_x = int(surface.get_size()[0] / tile_size)
     tile_num_y = int(surface.get_size()[1] / tile_size)
