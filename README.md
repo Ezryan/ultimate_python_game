@@ -8,9 +8,11 @@ in future i can add background music in game
 
 instruction:
 
-1. download python 3.7+ and write this command in your terminal
-2. pip install pygame
-
+1. download python 3.7+
+2. write this command in your terminal
+```
+pip install pygame
+```
 starting:
 write this command in terminal:
 ```
