@@ -12,5 +12,7 @@ instruction:
 2. pip install pygame
 
 starting:
-1. write this command in terminal
-2. python3 path-to-game-folder/main.py
+write this command in terminal:
+```
+python3 path-to-game-folder/main.py
+```
